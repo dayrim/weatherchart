@@ -31,8 +31,8 @@ export class WeatherChartComponent implements AfterContentInit {
   @Output() partialLocationsChanged = new EventEmitter<String>();
   @ViewChild('locationInput') locationInput: ElementRef;
   @ViewChild('chartCanvas') chartCanvas: ElementRef;
-  private chart: Chart;
-  private myControl = new FormControl();
+  public chart: Chart;
+  public myControl = new FormControl();
   constructor() {}
 
   ngAfterContentInit(): void {

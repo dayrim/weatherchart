@@ -19,7 +19,6 @@ import { Locations, Place } from '../models/locations';
 })
 export class WeatherShellComponent implements OnInit {
   spinnerShow$: Observable<Boolean>;
-
   forecast$: Observable<Forecast>;
   locations$: Observable<Locations>;
   public wind$ = new Subject<Wind>();
@@ -38,7 +37,6 @@ export class WeatherShellComponent implements OnInit {
         wind.speed = (Math.round(Number(wind.speed) / 3.6) * 100) / 100 + ' m/s';
         this.wind$.next(wind);
       }
-
       this.weatherchart.buildChart(forecast);
     });
     this.locations$.subscribe(locations => {
@@ -48,10 +46,8 @@ export class WeatherShellComponent implements OnInit {
           locations.query.results.place.map(place => {
             allLocations.push(this.getSuggestion(place));
           });
-          console.log(allLocations);
         } else {
           allLocations.push(this.getSuggestion(locations.query.results.place));
-          console.log(allLocations);
         }
       }
       this.locationsArray$.next(allLocations.splice(0, 3));
