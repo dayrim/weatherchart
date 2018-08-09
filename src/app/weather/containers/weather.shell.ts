@@ -44,75 +44,43 @@ export class WeatherShellComponent implements OnInit {
     this.locations$.subscribe(locations => {
       const allLocations: string[] = [];
       if (locations !== null && locations.query.results !== null) {
-        let title: string;
-
         if (locations.query.results.place.constructor === Array) {
           locations.query.results.place.map(place => {
-            title = '';
-            if (place.admin3) {
-              if (title !== '') {
-                title = title + ', ';
-              }
-              title = title + place.admin3.content;
-            }
-            if (place.admin2) {
-              if (title !== '') {
-                title = title + ', ';
-              }
-              title = title + place.admin2.content;
-            }
-            if (place.admin1) {
-              if (title !== '') {
-                title = title + ', ';
-              }
-              title = title + place.admin1.content;
-            }
-            if (place.country) {
-              if (title !== '') {
-                title = title + ', ';
-              }
-              title = title + place.country.code;
-            }
-            if (title === '') {
-              title = title + place.name;
-            }
-            allLocations.push(title);
+            allLocations.push(this.getSuggestion(place));
           });
+          console.log(allLocations);
         } else {
-          title = '';
-          const place: Place = locations.query.results.place;
-          if (place.admin3) {
-            if (title !== '') {
-              title = title + ', ';
-            }
-            title = title + place.admin3.content;
-          }
-          if (place.admin2) {
-            if (title !== '') {
-              title = title + ', ';
-            }
-            title = title + place.admin2.content;
-          }
-          if (place.admin1) {
-            if (title !== '') {
-              title = title + ', ';
-            }
-            title = title + place.admin1.content;
-          }
-          if (place.country) {
-            if (title !== '') {
-              title = title + ', ';
-            }
-            title = title + place.country.code;
-          }
-          if (title === '') {
-            title = title + place.name;
-          }
-          allLocations.push(title);
+          allLocations.push(this.getSuggestion(locations.query.results.place));
+          console.log(allLocations);
         }
       }
       this.locationsArray$.next(allLocations.splice(0, 3));
     });
+  }
+  getSuggestion(place: any): string {
+    let title: string;
+    title = '';
+    Object.keys(place)
+      .reverse()
+      .forEach(key => {
+        const value = place[key];
+        if (key === 'admin3' && value !== null) {
+          title = title + value.content + ', ';
+        }
+        if (key === 'admin2' && value !== null) {
+          title = title + value.content + ', ';
+        }
+        if (key === 'admin1' && value !== null) {
+          title = title + value.content + ', ';
+        }
+        if (key === 'country' && value !== null) {
+          title = title + value.code + ', ';
+        }
+        if (key === 'name' && title === '') {
+          title = value + ', ';
+        }
+      });
+    return title.slice(0, -2);
   }
   getCardinal(angle) {
     const directions = 8;

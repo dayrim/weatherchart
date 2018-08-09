@@ -20,7 +20,7 @@ app.route("/api/forecast/*").get((req, res) => {
   var query = new YQL(
     'select title, item.forecast, wind  from weather.forecast where woeid in (select woeid from geo.places where text="' +
       String(req.params[0]) +
-      '") and u = "C" limit 10 | sort(field="item.forecast.date", descending="false")'
+      '") and u = "C" limit 3 | sort(field="item.forecast.date", descending="false")'
   );
 
   query.exec(function(err, data) {
