@@ -1,5 +1,5 @@
 # Weather Chart App
-The app is hosted at https://weatherchartapp.herokuapp.com/weather
+The app is hosted at https://weatherchartapp.herokuapp.com/
 
 ## Local installation guide
 * Install npm and node https://nodejs.org/en/.
