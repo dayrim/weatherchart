@@ -1,5 +1,4 @@
 import { createFeatureSelector, createSelector, MemoizedSelector } from '@ngrx/store';
-
 import { Forecast } from '../models/forecast';
 import { Locations } from '../models/locations';
 

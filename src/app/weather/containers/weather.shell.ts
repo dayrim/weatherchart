@@ -9,12 +9,9 @@ import { Forecast, Wind } from '../models/forecast';
 import { Locations, Place } from '../models/locations';
 @Component({
   template: `
-
-
   <app-weatherchart #weatherchart
    [locationsArray]="locationsArray$ | async"
    [wind]="wind$ | async"
-   (loadingStarted)="setLoadingStarted()"
    (locationSelected)="loadLocationForecastData($event)"
    (partialLocationsChanged)="loadPossibleLocations($event)"
   >

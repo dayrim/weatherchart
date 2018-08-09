@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-
 import { catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-
 import { Forecast } from '../models/forecast';
 import { Locations } from '../models/locations';
 

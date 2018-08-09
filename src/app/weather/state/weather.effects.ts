@@ -3,7 +3,6 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { NewsService } from '../services/weather.service';
 import * as WeatherchartAction from './weather.actions';
 import { mergeMap, map, switchMap } from 'rxjs/operators';
-
 import { Observable } from 'rxjs';
 
 @Injectable()

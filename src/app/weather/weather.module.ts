@@ -22,7 +22,7 @@ import {
 } from '@angular/material';
 
 export const COMPONENTS = [];
-const newsRoutes: Routes = [{ path: '', component: WeatherShellComponent }];
+const weatherRoutes: Routes = [{ path: '', component: WeatherShellComponent }];
 
 @NgModule({
   imports: [
@@ -40,7 +40,7 @@ const newsRoutes: Routes = [{ path: '', component: WeatherShellComponent }];
     MatDividerModule,
     MatProgressSpinnerModule,
     MatDialogModule,
-    RouterModule.forChild(newsRoutes),
+    RouterModule.forChild(weatherRoutes),
     EffectsModule.forFeature([WeatherEffects]),
     StoreModule.forFeature('weatherchart', reducer)
   ],
