@@ -1,0 +1,46 @@
+.chartContainer {
+  // position: relative;
+  // height: 40vh;
+  // width: 80vw;
+  display: flex;
+  justify-content: center;
+}
+mat-divider {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+mat-toolbar {
+  display: flex;
+  justify-content: center;
+}
+.tempContainer {
+  display: flex;
+  justify-content: center;
+}
+.windContainer {
+  display: flex;
+  justify-content: center;
+}
+.windContainer p {
+  margin: 5px;
+}
+.chartActions {
+  display: flex;
+  flex-flow: column;
+}
+.chartInput {
+  flex-grow: 1;
+  text-align: center;
+}
+.chartButton {
+  flex-grow: 1;
+}
+.chartInputField {
+}
+
+h3 {
+  margin: 0px;
+}
+h4 {
+  margin: 0px;
+}
