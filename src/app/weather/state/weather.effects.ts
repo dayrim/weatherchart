@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { NewsService } from '../services/weather.service';
+import { WeatherService } from '../services/weather.service';
 import * as WeatherchartAction from './weather.actions';
 import { mergeMap, map, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 @Injectable()
 export class WeatherEffects {
-  constructor(private actions$: Actions, private newsService: NewsService) {}
+  constructor(private actions$: Actions, private newsService: WeatherService) {}
 
   @Effect()
   loadForecast$: Observable<WeatherchartAction.Action> = this.actions$.pipe(

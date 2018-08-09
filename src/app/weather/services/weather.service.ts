@@ -8,7 +8,7 @@ import { Locations } from '../models/locations';
 @Injectable({
   providedIn: 'root'
 })
-export class NewsService {
+export class WeatherService {
   constructor(private http: HttpClient) {}
 
   getWeatherDataByLocation(location: string): Observable<Forecast> {
