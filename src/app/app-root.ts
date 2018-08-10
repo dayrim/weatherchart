@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
 </div>`
 })
 export class WeatherAppComponent {
-  title = 'weatherchart-app';
+  title = 'Weatherchart app';
 }

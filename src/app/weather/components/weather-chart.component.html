@@ -7,7 +7,7 @@
     <mat-divider></mat-divider>
     <mat-form-field class="chartInput">
       <input class="chartInputField" #locationInput matInput placeholder="Location" value="Tallinn, Harju County, EE" (input)="queryPartialLocation($event.target.value)"
-        (keyup.enter)="querySelectedLocation(locationInput.value)" [formControl]="myControl" [matAutocomplete]="auto">
+        (keyup.enter)="querySelectedLocation(locationInput.value)" [formControl]="inputControl" [matAutocomplete]="auto">
     </mat-form-field>
     <mat-autocomplete #auto="matAutocomplete">
       <mat-option *ngFor="let location of locationsArray" (keyup.enter)="querySelectedLocation(locationInput.value)" (click)="querySelectedLocation(locationInput.value)"

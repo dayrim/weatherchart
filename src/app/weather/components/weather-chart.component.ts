@@ -32,7 +32,7 @@ export class WeatherChartComponent implements AfterContentInit {
   @ViewChild('locationInput') locationInput: ElementRef;
   @ViewChild('chartCanvas') chartCanvas: ElementRef;
   public chart: Chart;
-  public myControl = new FormControl();
+  public inputControl = new FormControl();
   constructor() {}
 
   ngAfterContentInit(): void {
@@ -55,9 +55,7 @@ export class WeatherChartComponent implements AfterContentInit {
 
       twodContext.font = '25px Arial';
       twodContext.textAlign = 'center';
-
       twodContext.fillText('No data for location', 150, 120);
-
       return;
     } else if (forecast.query.count === 0) {
       return;
@@ -65,7 +63,6 @@ export class WeatherChartComponent implements AfterContentInit {
     if (!this.chart || this.chart.canvas === null) {
       this.chart = new Chart(this.chartCanvas.nativeElement, {
         type: 'line',
-
         data: {
           labels: [],
           datasets: [
@@ -119,7 +116,6 @@ export class WeatherChartComponent implements AfterContentInit {
       this.chart.resize();
     }
     this.forecast = forecast;
-
     const allDates: string[] = [];
     const allMaxTemp: number[] = [];
     const allMinTemp: number[] = [];
@@ -127,9 +123,7 @@ export class WeatherChartComponent implements AfterContentInit {
       const jsdate = new Date(channel.item.forecast.date);
       let datestring = jsdate.toLocaleTimeString('est', { day: 'numeric', month: 'short' });
       datestring = datestring.substring(0, datestring.indexOf(','));
-
       allDates.push(datestring);
-
       if (channel.title) {
         let locationstring = channel.title;
         locationstring = locationstring.substring(

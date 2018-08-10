@@ -14,7 +14,6 @@ import { PageNotFoundComponent } from './weather/components/not-found-component'
   declarations: [PageNotFoundComponent, WeatherAppComponent],
   imports: [
     HttpClientModule,
-
     RouterModule.forRoot(appRoutes),
     BrowserModule,
     BrowserAnimationsModule,

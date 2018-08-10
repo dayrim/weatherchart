@@ -6,7 +6,7 @@ import * as WeatherchartAction from '../state/weather.actions';
 import * as WeatherchartSelector from '../state';
 import { WeatherChartComponent } from '../components/weather-chart.component';
 import { Forecast, Wind } from '../models/forecast';
-import { Locations, Place } from '../models/locations';
+import { Locations } from '../models/locations';
 @Component({
   template: `
   <app-weatherchart #weatherchart
@@ -80,7 +80,6 @@ export class WeatherShellComponent implements OnInit {
   }
   getCardinal(angle) {
     const directions = 8;
-
     const degree = 360 / directions;
     angle = angle + degree / 2;
 
