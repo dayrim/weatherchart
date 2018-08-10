@@ -24,7 +24,6 @@ import { FormControl } from '@angular/forms';
 })
 export class WeatherChartComponent implements AfterContentInit {
   @Input() spinnerShow: boolean;
-  @Input() forecast: Forecast;
   @Input() wind: Wind;
   @Input() locationsArray: string[];
   @Output() locationSelected = new EventEmitter<String>();
@@ -45,19 +44,24 @@ export class WeatherChartComponent implements AfterContentInit {
   querySelectedLocation(location: string): void {
     this.locationSelected.emit(location);
   }
+  drawChartError() {
+    if (this.chart) {
+      this.chart.destroy();
+    }
+    const twodContext = this.chartCanvas.nativeElement.getContext('2d');
 
-  buildChart(forecast: Forecast): void {
-    if (forecast.query.results === null) {
-      if (this.chart) {
-        this.chart.destroy();
-      }
-      const twodContext = this.chartCanvas.nativeElement.getContext('2d');
-
-      twodContext.font = '25px Arial';
-      twodContext.textAlign = 'center';
-      twodContext.fillText('No data for location', 150, 120);
-      return;
-    } else if (forecast.query.count === 0) {
+    twodContext.font = '25px Arial';
+    twodContext.textAlign = 'center';
+    twodContext.fillText('No data for location', 150, 120);
+    return;
+  }
+  buildChart(
+    locationstring: string,
+    allDates: string[],
+    allMaxTemp: number[],
+    allMinTemp: number[]
+  ): void {
+    if (allDates.length === 0) {
       return;
     }
     if (!this.chart || this.chart.canvas === null) {
@@ -113,33 +117,8 @@ export class WeatherChartComponent implements AfterContentInit {
           }
         }
       });
-      this.chart.resize();
     }
-    this.forecast = forecast;
-    const allDates: string[] = [];
-    const allMaxTemp: number[] = [];
-    const allMinTemp: number[] = [];
-    forecast.query.results.channel.forEach(channel => {
-      const jsdate = new Date(channel.item.forecast.date);
-      let datestring = jsdate.toLocaleTimeString('est', { day: 'numeric', month: 'short' });
-      datestring = datestring.substring(0, datestring.indexOf(','));
-      allDates.push(datestring);
-      if (channel.title) {
-        let locationstring = channel.title;
-        locationstring = locationstring.substring(
-          locationstring.indexOf('-') + 2,
-          locationstring.length
-        );
-        this.locationInput.nativeElement.value = locationstring;
-      }
-    });
-
-    forecast.query.results.channel.map(channel => {
-      allMaxTemp.push(channel.item.forecast.high);
-    });
-    forecast.query.results.channel.map(channel => {
-      allMinTemp.push(channel.item.forecast.low);
-    });
+    this.locationInput.nativeElement.value = locationstring;
     if (this.chart) {
       this.chart.data.labels = allDates;
       this.chart.data.datasets[0].data = allMaxTemp;

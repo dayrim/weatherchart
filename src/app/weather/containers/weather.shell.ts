@@ -9,13 +9,17 @@ import { Forecast, Wind } from '../models/forecast';
 import { Locations } from '../models/locations';
 @Component({
   template: `
+  <mat-toolbar layout-align="center center" color="warm">
+  <h1>Weather chart</h1>
+</mat-toolbar>
   <app-weatherchart #weatherchart
    [locationsArray]="locationsArray$ | async"
    [wind]="wind$ | async"
    (locationSelected)="loadLocationForecastData($event)"
    (partialLocationsChanged)="loadPossibleLocations($event)"
   >
-   </app-weatherchart>`
+   </app-weatherchart>`,
+  styles: ['mat-toolbar { display: flex; justify-content: center; }']
 })
 export class WeatherShellComponent implements OnInit {
   spinnerShow$: Observable<Boolean>;
@@ -36,8 +40,39 @@ export class WeatherShellComponent implements OnInit {
         wind.direction = this.getCardinal(Number(wind.direction));
         wind.speed = (Math.round(Number(wind.speed) / 3.6) * 100) / 100 + ' m/s';
         this.wind$.next(wind);
+
+        const allDates: string[] = [];
+        const allMaxTemp: number[] = [];
+        const allMinTemp: number[] = [];
+        let locationstring: string;
+
+        forecast.query.results.channel.forEach(channel => {
+          const jsdate = new Date(channel.item.forecast.date);
+          let datestring = jsdate.toLocaleTimeString('est', { day: 'numeric', month: 'short' });
+          datestring = datestring.substring(0, datestring.indexOf(','));
+          allDates.push(datestring);
+          if (channel.title) {
+            locationstring = channel.title;
+            locationstring = locationstring.substring(
+              locationstring.indexOf('-') + 2,
+              locationstring.length
+            );
+          }
+        });
+
+        forecast.query.results.channel.map(channel => {
+          allMaxTemp.push(channel.item.forecast.high);
+        });
+        forecast.query.results.channel.map(channel => {
+          allMinTemp.push(channel.item.forecast.low);
+        });
+        console.log(forecast.query.results.channel);
+        console.log(allDates);
+        console.log(locationstring);
+        this.weatherchart.buildChart(locationstring, allDates, allMaxTemp, allMinTemp);
+      } else {
+        this.weatherchart.drawChartError();
       }
-      this.weatherchart.buildChart(forecast);
     });
     this.locations$.subscribe(locations => {
       const allLocations: string[] = [];

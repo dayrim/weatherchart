@@ -13,28 +13,7 @@ export const initialState: WeatherState = {
       count: 0,
       created: '',
       lang: '',
-      results: {
-        channel: [
-          {
-            title: '',
-            wind: {
-              chill: 0,
-              direction: '',
-              speed: ''
-            },
-            item: {
-              forecast: {
-                code: 0,
-                date: '',
-                day: '',
-                high: 0,
-                low: 0,
-                text: ''
-              }
-            }
-          }
-        ]
-      }
+      results: null
     }
   },
   locations: null
