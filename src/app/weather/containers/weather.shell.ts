@@ -37,15 +37,13 @@ export class WeatherShellComponent implements OnInit {
     this.forecast$.subscribe(forecast => {
       if (forecast.query.results !== null) {
         const wind: Wind = forecast.query.results.channel[0].wind;
-        wind.direction = this.getCardinal(Number(wind.direction));
-        wind.speed = (Math.round(Number(wind.speed) / 3.6) * 100) / 100 + ' m/s';
-        this.wind$.next(wind);
-
         const allDates: string[] = [];
         const allMaxTemp: number[] = [];
         const allMinTemp: number[] = [];
         let locationstring: string;
 
+        wind.direction = this.getCardinal(Number(wind.direction));
+        wind.speed = (Math.round(Number(wind.speed) / 3.6) * 100) / 100 + ' m/s';
         forecast.query.results.channel.forEach(channel => {
           const jsdate = new Date(channel.item.forecast.date);
           let datestring = jsdate.toLocaleTimeString('est', { day: 'numeric', month: 'short' });
@@ -66,9 +64,7 @@ export class WeatherShellComponent implements OnInit {
         forecast.query.results.channel.map(channel => {
           allMinTemp.push(channel.item.forecast.low);
         });
-        console.log(forecast.query.results.channel);
-        console.log(allDates);
-        console.log(locationstring);
+        this.wind$.next(wind);
         this.weatherchart.buildChart(locationstring, allDates, allMaxTemp, allMinTemp);
       } else {
         this.weatherchart.drawChartError();

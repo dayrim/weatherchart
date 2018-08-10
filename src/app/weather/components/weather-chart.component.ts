@@ -39,10 +39,14 @@ export class WeatherChartComponent implements AfterContentInit {
     this.locationSelected.emit(this.locationInput.nativeElement.value);
   }
   queryPartialLocation(partialLocation: string): void {
-    this.partialLocationsChanged.emit(partialLocation);
+    if (partialLocation !== '') {
+      this.partialLocationsChanged.emit(partialLocation);
+    }
   }
   querySelectedLocation(location: string): void {
-    this.locationSelected.emit(location);
+    if (location !== '') {
+      this.locationSelected.emit(location);
+    }
   }
   drawChartError() {
     if (this.chart) {
