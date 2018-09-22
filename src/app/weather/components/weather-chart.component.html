@@ -1,23 +1,27 @@
 <div class="chartComponent" [@fadeInOut]>
-
+  <mat-toolbar layout-align="center center" color="warm">
+    <h1>Enter a location:</h1>
+  </mat-toolbar>
   <div class="chartActions">
-    <button class="chartButton" mat-raised-button color="primary" (click)="querySelectedLocation(locationInput.value)">Show</button>
-    <mat-divider></mat-divider>
+
+
     <mat-form-field class="chartInput">
-      <input class="chartInputField" #locationInput matInput placeholder="Location" value="Tallinn, Harju County, EE" (input)="queryPartialLocation($event.target.value)"
-        (keyup.enter)="querySelectedLocation(locationInput.value)" [formControl]="inputControl" [matAutocomplete]="auto">
+      <input class="chartInputField" #locationInput matInput placeholder="Location" value="Tallinn, Harju County, EE"
+        (input)="queryPartialLocation($event.target.value)" (keyup.enter)="querySelectedLocation(locationInput.value)"
+        [formControl]="inputControl" [matAutocomplete]="auto">
     </mat-form-field>
     <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let location of locationsArray" (keyup.enter)="querySelectedLocation(locationInput.value)" (click)="querySelectedLocation(locationInput.value)"
-        [value]="location">{{location}}</mat-option>
-    </mat-autocomplete>
+      <mat-option *ngFor="let location of locationsArray" (keyup.enter)="querySelectedLocation(locationInput.value)"
+        (click)="querySelectedLocation(locationInput.value)" [value]="location">{{location}}</mat-option>
+    </mat-autocomplete><button class="chartButton" mat-raised-button color="primary" (click)="querySelectedLocation(locationInput.value)">Show</button>
   </div>
-  <div class="windContainer" *ngIf="wind">
-    <p>Wind: </p>
-    <p>{{wind.speed}}</p>
-    <p>{{wind.direction}}</p>
-  </div>
-  <div class="chartContainer ">
+
+  <div class="chart ">
+    <div class="wind" *ngIf="wind">
+      <p>Wind: </p>
+      <p>{{wind.speed}}</p>
+      <p>{{wind.direction}}</p>
+    </div>
     <canvas [@fadeInOut] #chartCanvas>{{ chart }}</canvas>
   </div>
 </div>

@@ -9,9 +9,7 @@ import { Forecast, Wind } from '../models/forecast';
 import { Locations } from '../models/locations';
 @Component({
   template: `
-  <mat-toolbar layout-align="center center" color="warm">
-  <h1>Weather chart</h1>
-</mat-toolbar>
+
   <app-weatherchart #weatherchart
    [locationsArray]="locationsArray$ | async"
    [wind]="wind$ | async"
@@ -19,7 +17,7 @@ import { Locations } from '../models/locations';
    (partialLocationsChanged)="loadPossibleLocations($event)"
   >
    </app-weatherchart>`,
-  styles: ['mat-toolbar { display: flex; justify-content: center; }']
+  styles: ['']
 })
 export class WeatherShellComponent implements OnInit {
   spinnerShow$: Observable<Boolean>;
@@ -46,9 +44,12 @@ export class WeatherShellComponent implements OnInit {
         wind.speed = (Math.round(Number(wind.speed) / 3.6) * 100) / 100 + ' m/s';
         forecast.query.results.channel.forEach(channel => {
           const jsdate = new Date(channel.item.forecast.date);
-          let datestring = jsdate.toLocaleTimeString('est', { day: 'numeric', month: 'short' });
-          datestring = datestring.substring(0, datestring.indexOf(','));
-          allDates.push(datestring);
+          const datestring = jsdate.toLocaleTimeString('est', { day: 'numeric', month: 'short' });
+
+          const day = datestring.replace('.', '').split(' ')[0];
+          const month = datestring.replace('.', '').split(' ')[1];
+
+          allDates.push(day + ' ' + month);
           if (channel.title) {
             locationstring = channel.title;
             locationstring = locationstring.substring(
